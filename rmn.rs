@@ -16,8 +16,5 @@ fn main() {
     } else {
         println!("number is not divisible by 4, 3, or 2");
     }
-    /*Using too many else if expressions can clutter your code, so if you have more than one, 
-    you might want to refactor your code. 
-    Chapter 6 describes a powerful Rust branching construct called match for these cases.*/
 
 }
