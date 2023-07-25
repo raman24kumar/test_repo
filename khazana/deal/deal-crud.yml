@@ -1,0 +1,84 @@
+name: Deal
+fields:
+  - name: symbol
+    method: Lookup
+  - name: entity
+    ignoreOnSave: true  # Re-visit if this is needed.
+    method: Lookup
+  - name: portfolio # The get rpc will be GetPortfolioLookup RPC
+    ignoreOnSave: true
+    method: Lookup
+  - name: demat
+    method: Lookup
+  - name: amount
+    type: Long  # Refer to the app metadata for precision.
+  - name: dealType
+    method: Lookup # Lookup: true
+  - name: quantity
+    type: Long
+
+database:
+  fields:
+    - name: symbol
+      table: EQDealRequest
+      column: ISIN
+      reference:
+        table: Equity
+        key:
+          name: ISIN
+          type: String
+        value:
+          name: Symbol
+          type: String
+    - name: entity
+      reference:
+        table: Entity
+        key:
+          name: ID
+          type: Int
+        value:
+          name: EntityName
+          type: String
+    - name: portfolio
+      reference:
+        table: EQPortfolio
+        key:
+          name: ID
+          type: Int
+        value:
+          name: PortfolioName
+          type: String
+      dependsOn: # Implies it will be available to select only when an entity is selected. Also, values will be fetched based on `entity.id`.
+        field: entity
+        column: EntityID
+    - name: demat
+      table: EQDealRequest
+      column: DematAccountNumber
+      reference:
+        table: DematAccount
+        key:
+          name: DematAccountNumber
+          type: String
+        value:
+          name: DematAccountNumber
+          type: String
+      dependsOn:
+        field: portfolio
+        column: PortfolioID
+    - name: amount
+      table: EQDealRequest
+      column: amount
+    - name: dealType
+      table: EQDealRequest
+      column: DealRequestId
+      reference:
+        table: TransactionType
+        key:
+          name: ID
+          type: Int
+        value:
+          name: Type
+          type: String
+    - name: quantity
+      table: EQDealRequest
+      column: quantity

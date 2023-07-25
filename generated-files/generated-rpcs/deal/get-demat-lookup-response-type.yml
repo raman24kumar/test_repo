@@ -1,0 +1,6 @@
+name: GetDematLookupResponse
+attributes:
+- name: key
+  type: String
+- name: label
+  type: String

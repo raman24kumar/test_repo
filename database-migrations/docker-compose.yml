@@ -1,0 +1,18 @@
+version: "3"
+services:
+  ctdb:
+    container_name: ctdb
+    image: postgres:13.11
+    ports:
+      - 7012:5432
+    restart: always
+    environment:
+      POSTGRES_DB: ctdb
+      POSTGRES_USER: ctdb
+      POSTGRES_PASSWORD: TestPassword1234@
+
+    volumes:
+      - ctdb_postgres_data:/var/lib/ctdb/postgresql/data
+
+volumes:
+  ctdb_postgres_data:

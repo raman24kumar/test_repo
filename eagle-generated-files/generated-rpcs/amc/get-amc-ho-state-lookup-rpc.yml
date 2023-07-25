@@ -1,0 +1,9 @@
+name: GetAMCHoStateLookup
+request:
+- name: countryCode
+  type: String
+response:
+- name: result
+  type: List
+  elementType: GetAMCHoStateLookupResponse
+requiresAuthentication: NONE

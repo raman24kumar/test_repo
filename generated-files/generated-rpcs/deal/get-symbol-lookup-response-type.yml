@@ -1,0 +1,6 @@
+name: GetSymbolLookupResponse
+attributes:
+- name: key
+  type: String
+- name: label
+  type: String

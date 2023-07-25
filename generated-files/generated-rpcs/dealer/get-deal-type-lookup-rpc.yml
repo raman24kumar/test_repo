@@ -1,0 +1,6 @@
+name: GetDealTypeLookup
+request: null
+response:
+- name: result
+  type: List
+  elementType: GetDealTypeLookupResponse

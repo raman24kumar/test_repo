@@ -1,0 +1,171 @@
+import org.jooq.codegen.GenerationTool
+import org.jooq.meta.jaxb.Database
+import org.jooq.meta.jaxb.Generate
+import org.jooq.meta.jaxb.Generator
+import org.jooq.meta.jaxb.Jdbc
+import org.jooq.meta.jaxb.Target
+import org.jooq.meta.jaxb.Configuration
+import org.flywaydb.core.Flyway
+
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'org.jooq:jooq-codegen:3.16.12'
+        classpath 'org.postgresql:postgresql:42.5.1'
+    }
+}
+
+plugins {
+    id "org.flywaydb.flyway" version "9.10.2"
+}
+
+apply plugin: 'kotlin'
+
+sourceSets {
+    main.kotlin.srcDirs = main.java.srcDirs = ['src']
+}
+
+dependencies {
+    implementation 'org.jooq:jooq:3.16.12'
+    runtimeOnly "org.postgresql:postgresql:42.5.1"
+}
+
+tasks.register('generateJooqCode') {
+    doLast {
+        def dbHostName = System.getenv("DB_HOST") ?: "localhost"
+        def dbPortNumber = System.getenv("DB_PORT") ?: "7012"
+        def dbName = System.getenv("DB_NAME") ?: "ctdb"
+        def dbUser = System.getenv("DB_USER_NAME") ?: "ctdb"
+        def dbPassword = System.getenv("DB_PASSWORD") ?: "TestPassword1234@"
+        def flyway = Flyway.configure()
+                .cleanDisabled(false)
+                .dataSource("jdbc:postgresql://$dbHostName:$dbPortNumber/$dbName", dbUser, dbPassword)
+                .locations("filesystem:$rootDir/database-migrations/postgresql/migrations/dev")
+                .load()
+        flyway.clean()
+        flyway.migrate()
+        GenerationTool.generate(new Configuration()
+                .withJdbc(new Jdbc()
+                        .withDriver('org.postgresql.Driver')
+                        .withUrl("jdbc:postgresql://$dbHostName:$dbPortNumber/$dbName")
+                        .withUser(dbUser)
+                        .withPassword(dbPassword))
+                .withGenerator(new Generator()
+                        .withName('org.jooq.codegen.KotlinGenerator')
+                        .withDatabase(new Database()
+                                .withInputSchema('public'))
+                        .withGenerate(new Generate().withRoutines(false))
+                        .withTarget(new Target()
+                                .withPackageName('com.suryadigital.khazana.jooq')
+                                .withDirectory("${projectDir}/src")
+                                .withClean(true)
+                        )))
+    }
+}
+
+tasks.register('sourcesJar', Jar) {
+    archiveClassifier = 'sources'
+    from sourceSets.main.allSource
+}
+artifacts {
+    archives sourcesJar, jar
+}
+
+publishing {
+    publications {
+        gpr(MavenPublication) {
+            artifactId 'jooq'
+            from(components.java)
+            artifact sourcesJar
+        }
+    }
+}import org.jooq.codegen.GenerationTool
+import org.jooq.meta.jaxb.Database
+import org.jooq.meta.jaxb.Generate
+import org.jooq.meta.jaxb.Generator
+import org.jooq.meta.jaxb.Jdbc
+import org.jooq.meta.jaxb.Target
+import org.jooq.meta.jaxb.Configuration
+import org.flywaydb.core.Flyway
+
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'org.jooq:jooq-codegen:3.16.12'
+        classpath 'org.postgresql:postgresql:42.5.1'
+    }
+}
+
+plugins {
+    id "org.flywaydb.flyway" version "9.10.2"
+}
+
+apply plugin: 'kotlin'
+
+sourceSets {
+    main.kotlin.srcDirs = main.java.srcDirs = ['src']
+}
+
+dependencies {
+    implementation 'org.jooq:jooq:3.16.12'
+    runtimeOnly "org.postgresql:postgresql:42.5.1"
+}
+
+tasks.register('generateJooqCode') {
+    doLast {
+        def dbHostName = System.getenv("DB_HOST") ?: "localhost"
+        def dbPortNumber = System.getenv("DB_PORT") ?: "7012"
+        def dbName = System.getenv("DB_NAME") ?: "ctdb"
+        def dbUser = System.getenv("DB_USER_NAME") ?: "ctdb"
+        def dbPassword = System.getenv("DB_PASSWORD") ?: "TestPassword1234@"
+        def flyway = Flyway.configure()
+                .cleanDisabled(false)
+                .dataSource("jdbc:postgresql://$dbHostName:$dbPortNumber/$dbName", dbUser, dbPassword)
+                .locations("filesystem:$rootDir/database-migrations/postgresql/migrations/dev")
+                .load()
+        flyway.clean()
+        flyway.migrate()
+        GenerationTool.generate(new Configuration()
+                .withJdbc(new Jdbc()
+                        .withDriver('org.postgresql.Driver')
+                        .withUrl("jdbc:postgresql://$dbHostName:$dbPortNumber/$dbName")
+                        .withUser(dbUser)
+                        .withPassword(dbPassword))
+                .withGenerator(new Generator()
+                        .withName('org.jooq.codegen.KotlinGenerator')
+                        .withDatabase(new Database()
+                                .withInputSchema('public'))
+                        .withGenerate(new Generate().withRoutines(false))
+                        .withTarget(new Target()
+                                .withPackageName('com.suryadigital.khazana.jooq')
+                                .withDirectory("${projectDir}/src")
+                                .withClean(true)
+                        )))
+    }
+}
+
+tasks.register('sourcesJar', Jar) {
+    archiveClassifier = 'sources'
+    from sourceSets.main.allSource
+}
+artifacts {
+    archives sourcesJar, jar
+}
+
+publishing {
+    publications {
+        gpr(MavenPublication) {
+            artifactId 'jooq'
+            from(components.java)
+            artifact sourcesJar
+        }
+    }
+}

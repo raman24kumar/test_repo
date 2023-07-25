@@ -1,0 +1,14 @@
+package com.suryadigital.khazana.dealer.queries
+
+import org.koin.dsl.module
+import org.koin.core.module.Module
+
+val databaseModule : Module = module {
+   single<InsertEQDealRequest> { InsertEQDealRequestPostgres() }
+   single<GetEQPortfolio> { GetEQPortfolioPostgres() }
+   single<DatabaseModule> { DatabaseModulePostgres() }
+   single<GetTransactionType> { GetTransactionTypePostgres() }
+   single<GetEntity> { GetEntityPostgres() }
+   single<GetDematAccount> { GetDematAccountPostgres() }
+   single<GetEquity> { GetEquityPostgres() }
+}

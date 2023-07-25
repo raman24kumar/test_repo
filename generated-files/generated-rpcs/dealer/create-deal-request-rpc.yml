@@ -1,0 +1,12 @@
+name: CreateDealRequest
+request:
+- name: symbol
+  type: String
+- name: demat
+  type: String
+- name: amount
+  type: Int64
+- name: dealType
+  type: Int32
+- name: quantity
+  type: Int64

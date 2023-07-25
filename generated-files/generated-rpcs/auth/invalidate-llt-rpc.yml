@@ -1,0 +1,5 @@
+name: InvalidateLLT
+request:
+  - name: llt
+    type: String
+requiresAuthentication: SERVER_TO_SERVER

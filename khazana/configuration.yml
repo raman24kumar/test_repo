@@ -1,0 +1,8 @@
+packageName : com.suryadigital.khazana
+repo: Surya/Khazana
+database:
+  dbHostName: localhost
+  dbPortNumber: 7012
+  dbName: ctdb
+  dbUser: ctdb
+  dbPassword: TestPassword1234@

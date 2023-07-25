@@ -1,0 +1,8 @@
+name: GetPortfolioLookup
+request:
+- name: id
+  type: Int32
+response:
+- name: result
+  type: List
+  elementType: GetPortfolioLookupResponse

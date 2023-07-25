@@ -1,0 +1,6 @@
+name: GetSymbolLookup
+request: null
+response:
+- name: result
+  type: List
+  elementType: GetSymbolLookupResponse

@@ -1,0 +1,6 @@
+name: GetPortfolioLookupResponse
+attributes:
+- name: key
+  type: Int32
+- name: label
+  type: String

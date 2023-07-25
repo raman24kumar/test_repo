@@ -1,0 +1,5 @@
+name: InvalidateUserLlts
+request:
+  - name: userId
+    type: UUID
+requiresAuthentication: SERVER_TO_SERVER

@@ -1,0 +1,14 @@
+name: GetAMCRequestListResponse
+attributes:
+- name: amcId
+  type: UUID
+  optional: false
+- name: amcName
+  type: String
+  optional: false
+- name: status
+  type: Enum
+  cases:
+  - name: ENABLE
+  - name: DISABLE
+  optional: false

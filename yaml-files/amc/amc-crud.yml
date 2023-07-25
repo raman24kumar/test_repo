@@ -1,0 +1,118 @@
+name: AMC
+fields:
+  - name: amcId
+    type: UUID # assuming uuid for now even if it is string in the UI
+  - name: amcName
+    type: String
+  - name: amcManagerName
+    type: String
+  - name: status
+    type: Enum # assuming that enum will always be drop down for now (later we need to consider for the radio buttons)
+    options:
+      - name: ENABLE
+      - name: DISABLE
+  - name: hoAddress1
+    type: String
+    optional: true
+  - name: hoAddress2
+    type: String
+    optional: true
+  - name: hoAddress3
+    type: String
+    optional: true
+  - name: hoCountry
+    method: Lookup
+    optional: true
+  - name: hoState
+    method: Lookup
+    optional: true
+  - name: remarks
+    type: String
+    optional: true
+
+database:
+  tableToSave:
+    table: AMCRequest
+    primaryKeyColumn: amcId
+  fields:
+    - name: amcName
+      column: amcName
+    - name: amcManagerName
+      column: managerName
+    - name: status
+      column: status
+    - name: hoAddress1
+      column: hoAddress1
+    - name: hoAddress2
+      column: hoAddress2
+    - name: hoAddress3
+      column: hoAddress3
+    - name: hoCountry
+      column: hoCountry
+      reference:
+        table: Country
+        key:
+          column: countryCode
+          type: String
+        value:
+          column: countryName
+          type: String
+    - name: hoState
+      column: hoState
+      reference:
+        table: State
+        key:
+          column: stateCode
+          type: String
+        value:
+          column: stateName
+          type: String
+      dependsOn:
+        field: hoCountry
+        column: countryCode #(This column will be in state table)
+    - name: remarks
+      column: remark
+
+webUI:
+  textMap:
+    - name: amcId
+      title: AMC ID
+    - name: amcName
+      title: AMC Name
+    - name: amcManagerName
+      title: AMC Manager Name
+    - name: status
+      title: Status
+    - name: hoAddress1
+      title: House Address 1
+    - name: hoAddress2
+      title: House Address 2
+    - name: hoAddress3
+      title: House Address 3
+    - name: hoCountry
+      title: Country
+    - name: hoState
+      title: State
+    - name: remarks
+      title: Remarks
+  form: # same will be used for View Each Data, Update form and Create forms
+    - name: amcName
+    - name: amcManagerName
+    - name: status
+    - name: hoAddress1
+    - name: hoAddress2
+    - name: hoAddress3
+    - name: hoCountry
+    - name: hoState
+    - name: remarks
+  table:
+    searchableAttributes:
+      - name: amcId
+      - name: amcName
+    filterableAttributes:
+      - name: status
+    columns:
+      - name: amcId
+      - name: amcName
+      - name: status
+    itemsPerPage: 10

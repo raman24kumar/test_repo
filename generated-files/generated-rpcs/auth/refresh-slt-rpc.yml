@@ -1,0 +1,12 @@
+name: RefreshSLT
+comment: This RPC will be called to refresh the SLT using valid LLT.
+request:
+  - name: llt
+    type: String
+response:
+  - name: slt
+    type: String
+requiresAuthentication: SERVER_TO_SERVER
+errors:
+  - code: INVALID_LLT
+  - code: USER_DISABLED

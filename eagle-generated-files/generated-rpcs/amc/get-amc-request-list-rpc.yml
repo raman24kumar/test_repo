@@ -1,0 +1,23 @@
+name: GetAMCRequestList
+request:
+- name: status
+  type: Enum
+  cases:
+  - name: ENABLE
+  - name: DISABLE
+  optional: true
+- name: amcId
+  type: UUID
+  optional: true
+- name: amcName
+  type: String
+  optional: true
+- name: itemsPerPage
+  type: Int32
+- name: pageIndex
+  type: Int32
+response:
+  name: result
+  type: List
+  elementType: GetAMCRequestListResponse
+requiresAuthentication: NONE

@@ -1,0 +1,6 @@
+name: GetEntityLookup
+request: null
+response:
+- name: result
+  type: List
+  elementType: GetEntityLookupResponse

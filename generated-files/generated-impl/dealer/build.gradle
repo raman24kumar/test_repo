@@ -1,0 +1,73 @@
+import java.nio.file.Paths
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+apply plugin: 'kotlin'
+
+sourceSets {
+    main.kotlin.srcDirs = main.java.srcDirs = ['src']
+    test.kotlin.srcDirs = test.java.srcDirs = ['test']
+    main.resources.srcDirs = ['resources']
+    test.resources.srcDirs = ['testresources']
+}
+
+repositories {
+    maven { url 'https://kotlin.bintray.com/ktor' }
+}
+
+dependencies {
+    api project(":dealer-interface")
+    api project(":dealer-service-boilerplate")
+    api project(":jooq")
+    implementation "com.suryadigital.leo:types:$leo_version"
+    implementation "com.suryadigital.leo:basedb:$leo_version"
+    implementation "com.suryadigital.leo:inline-logger:$leo_version"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    implementation "org.slf4j:slf4j-api:$slf4j_version"
+    implementation "io.insert-koin:koin-ktor:$koin_version"
+    implementation "io.insert-koin:koin-logger-slf4j:$koin_version"
+}
+
+compileKotlin {
+    kotlinOptions.allWarningsAsErrors = true
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_11
+    kotlinOptions {
+        freeCompilerArgs = ["-Xinline-classes"]
+    }
+}
+compileTestKotlin {
+    kotlinOptions.allWarningsAsErrors = true
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_11
+    kotlinOptions {
+        freeCompilerArgs = ["-Xinline-classes"]
+    }
+}
+
+apply from: Paths.get("${project.rootDir}", "kotlin.gradle")
+
+tasks.register('sourcesJar', Jar) {
+    archiveClassifier = 'sources'
+    from sourceSets.main.allSource
+}
+artifacts {
+    archives sourcesJar, jar
+}
+
+publishing {
+    publications {
+        gpr(MavenPublication) {
+            artifactId 'dealer-service-impl'
+            from(components.java)
+            artifact sourcesJar
+        }
+    }
+}
+
+
+compileKotlin.dependsOn(":jooq:generateJooqCode")

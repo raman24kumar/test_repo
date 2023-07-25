@@ -1,0 +1,6 @@
+name: GetAMCHoCountryLookupResponse
+attributes:
+- name: key
+  type: String
+- name: value
+  type: String
