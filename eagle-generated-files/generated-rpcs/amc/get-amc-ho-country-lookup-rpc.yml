@@ -1,7 +1,0 @@
-name: GetAMCHoCountryLookup
-request: []
-response:
-- name: result
-  type: List
-  elementType: GetAMCHoCountryLookupResponse
-requiresAuthentication: NONE
