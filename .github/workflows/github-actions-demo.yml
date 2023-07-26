@@ -10,8 +10,10 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v3
-      - uses: ncipollo/release-action@v1
+      - name: Create release
+        uses: gps/create-github-release@master
         with:
-          artifacts: "release.tar.gz,foo/*.txt"
-
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_NAME: v${{steps.next_version.outputs.NEXT_BUILD_VERSION}}
+          ARTIFACTS: |
+            ./rpcgen.exe ==> rpc-gen-windows.exe
