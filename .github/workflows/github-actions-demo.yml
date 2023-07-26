@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Create release
         id: create_release
-        uses: actions/create-release@v2
+        uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -18,3 +18,4 @@ jobs:
           body: ${{steps.build_changelog.outputs.changelog}}
           draft: false
           prerelease: false
+          node-version: 16
