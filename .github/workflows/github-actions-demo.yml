@@ -10,6 +10,21 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Check out source code
+        uses: actions/checkout@v1
+
+      - name: Determine next version
+        uses: gps/determine-next-version@master
+        id: next_version
+        with:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Tag commit
+        uses: gps/tag-commit@master
+        with:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_NAME: v${{steps.next_version.outputs.NEXT_BUILD_VERSION}}
+
       - name: Create release
         uses: gps/create-github-release@master
         with:
