@@ -9,8 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       security-events: write
-      actions: read
-      contents: read
+      actions: write
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -25,7 +25,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          node_version: 16
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           body: ${{steps.build_changelog.outputs.changelog}}
