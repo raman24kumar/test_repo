@@ -5,29 +5,13 @@ on:
     branches:
       - main
 jobs:
-  release:
+  build:
     runs-on: ubuntu-latest
     permissions:
-      security-events: write
-      actions: write
       contents: write
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Setup node
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v3
+      - uses: ncipollo/release-action@v1
         with:
-          node-version: '16.x'
-          registry-url: 'https://registry.npmjs.org'
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: ${{steps.build_changelog.outputs.changelog}}
-          draft: false
-          prerelease: false
+          artifacts: "release.tar.gz,foo/*.txt"
 
