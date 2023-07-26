@@ -1,20 +1,13 @@
 name: Release
 on:
-  push:
-    branches:
-      - main
+  pull_request_target:
+    types:
+      - closed
+
 jobs:
-  release:
+  if_merged:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
-      - name: Create release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: ${{steps.build_changelog.outputs.changelog}}
-          draft: false
-          prerelease: false
+      - run: |
+          echo The PR was merged
