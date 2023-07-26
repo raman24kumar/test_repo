@@ -1,0 +1,10 @@
+name: Release
+on:
+  push:
+    branches:
+      - master
+jobs:
+  Release:
+    runs-on: [self-hosted, release]
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
