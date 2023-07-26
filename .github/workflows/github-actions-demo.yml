@@ -30,3 +30,5 @@ jobs:
         with:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG_NAME: v${{steps.next_version.outputs.NEXT_BUILD_VERSION}}
+          ARTIFACTS: |
+            ./name ==> data
