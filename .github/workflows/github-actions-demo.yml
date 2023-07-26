@@ -1,8 +1,5 @@
 name: Release
-permissions:
-  actions: write
-  contents: write
-  security-events: write
+
 on:
   push:
     branches:
@@ -10,6 +7,10 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
