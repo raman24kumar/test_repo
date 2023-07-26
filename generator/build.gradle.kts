@@ -6,9 +6,9 @@ plugins {
     id("com.diffplug.spotless")
 }
 
-apply {
-    from(Paths.get("${project.rootDir}", "spotless.gradle"))
-}
+//apply {
+//    from(Paths.get("${project.rootDir}", "spotless.gradle"))
+//}
 
 sourceSets {
     main {

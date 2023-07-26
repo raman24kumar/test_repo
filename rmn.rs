@@ -4,7 +4,7 @@ fn main() {
     let number = if !condition { 5 } else { 6 };// return types of both if and else blocks should be same.
 
     println!("The value of number is: {}",number);
-
+// comment
    
 
     if number % 4 == 0 {
