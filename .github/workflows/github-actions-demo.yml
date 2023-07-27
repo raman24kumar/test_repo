@@ -19,16 +19,20 @@ jobs:
         with:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Tag commit
-        uses: gps/tag-commit@master
+      - name: Create Github Release
+        id: create-new-release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG_NAME: v${{steps.next_version.outputs.NEXT_BUILD_VERSION}}
-
-      - name: Create release
-        uses: gps/create-github-release@master
+          tag_name: ${{ github.run_number }}
+          release_name: Release ${{ github.run_number }}
+      - name: Upload release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG_NAME: v${{steps.next_version.outputs.NEXT_BUILD_VERSION}}
-          ARTIFACTS: |
-            ./generator ==> build
+          upload_url: ${{ steps.create-new-release.outputs.upload_url }}
+          asset_path: ./build
+          asset_name: site-v${{ steps.create-new-release.outputs.upload_url }}
+          asset_content_type: application/zip
