@@ -12,20 +12,18 @@ jobs:
     permissions:
       contents: write
     steps:
+
       - name: Check out source code
         uses: actions/checkout@v1
 
-#      - name: Find Latest Release Tag
-#        id: latest_tag_name
-#        run: |
-#          git describe --abbrev=0 --tags
+      - name: Build JAR
+        run: './gradlew shadowJar'
 
       - name: Determine next version
         uses: gps/determine-next-version@master
         id: next_version
         with:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 
       - name: Create Github Release
         id: create-new-release
@@ -42,6 +40,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-new-release.outputs.upload_url }}
-          asset_path: ./build/libs/Eagle-Gen-0.0.1.jar
+          asset_path: ./build/libs/Eagle-Gen-0.0.1-all.jar
           asset_name: site-v${{ steps.create-new-release.outputs.upload_url }}
           asset_content_type: application/jar
