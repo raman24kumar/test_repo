@@ -1,12 +1,13 @@
 name: Release
 
 on:
-  push:
-    branches:
-      - main
+  pull_request_target:
+    types:
+      - closed
 
 jobs:
-  release:
+  if_merged:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -25,7 +26,7 @@ jobs:
 
       - name: Create Github Release
         id: create-new-release
-        uses: gps/create-github-release@master
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -38,6 +39,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-new-release.outputs.upload_url }}
-          asset_path: main/build/libs/EagleGen.jar
-          asset_name: EagleGen.jar
+          asset_path: main/build/libs/EagleGen-main.jar
+          asset_name: site-v${{ steps.create-new-release.outputs.upload_url }}
           asset_content_type: application/jar
