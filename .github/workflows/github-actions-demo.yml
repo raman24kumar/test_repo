@@ -12,12 +12,11 @@ jobs:
     permissions:
       contents: write
     steps:
-
       - name: Check out source code
         uses: actions/checkout@v1
 
       - name: Build JAR
-        run: './gradlew shadowJar'
+        run: 'gradle :main:shadowJar'
 
       - name: Determine next version
         uses: gps/determine-next-version@master
@@ -40,6 +39,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-new-release.outputs.upload_url }}
-          asset_path: ./build/libs/Eagle-Gen-0.0.1-all.jar
+          asset_path: main/build/libs/EagleGen-main.jar
           asset_name: site-v${{ steps.create-new-release.outputs.upload_url }}
           asset_content_type: application/jar
