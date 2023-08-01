@@ -1,8 +1,10 @@
 import java.nio.file.Paths
 
 plugins {
+    kotlin("jvm") version "1.8.21"
     id("java")
-    kotlin("jvm")
+    id("com.github.johnrengelman.shadow") version "7.1.2"
+    application
     id("com.diffplug.spotless")
 }
 
@@ -22,6 +24,16 @@ sourceSets {
         kotlin {
             srcDirs("src")
         }
+    }
+}
+
+application {
+    mainClass.set("com.suryadigital.eaglegen.main.MainKt")
+}
+
+tasks {
+    shadowJar {
+        archiveFileName.set("EagleGen-${project.name}.jar")
     }
 }
 
