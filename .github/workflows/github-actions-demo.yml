@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -17,16 +18,10 @@ jobs:
         run: 'gradle :main:shadowJar'
 
       - name: Determine next version
-        uses: gps/determine_next_version@master
+        uses: gps/determine-next-version@master
         id: next_version
         with:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Tag commit
-        uses: gps/tag_commit@master
-        with:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG_NAME: ${{steps.next_version.outputs.NEXT_BUILD_VERSION}}
 
       - name: Create Github Release
         id: create-new-release
@@ -43,6 +38,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-new-release.outputs.upload_url }}
-          asset_path: main/build/libs/EagleGen-main.jar
-          asset_name: EagleGen-main.jar
+          asset_path: main/build/libs/EagleGen.jar
+          asset_name: EagleGen.jar
           asset_content_type: application/jar
