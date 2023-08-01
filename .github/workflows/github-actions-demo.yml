@@ -17,7 +17,7 @@ jobs:
         run: 'gradle :main:shadowJar'
 
       - name: Determine next version
-        uses: gps/determine-next-version@master
+        uses: gps/determine_next_version@master
         id: next_version
         with:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
