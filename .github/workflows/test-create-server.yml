@@ -12,10 +12,10 @@ jobs:
         run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       - name: Set PATH for brew
         run: eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-      - name: Install hcloud via brew
-        run: brew install hcloud
       - name: Set Token
         run: export HCLOUD_TOKEN=secrets.HETZNER_TOKEN
+      - name: Install hcloud via brew
+        run: brew install hcloud
       - name: Create Server
         run: hcloud create context test-project
 
