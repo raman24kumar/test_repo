@@ -18,3 +18,4 @@ jobs:
         run: export HCLOUD_TOKEN=secrets.HETZNER_TOKEN
       - name: Create Server
         run: hcloud create context test-project
+
