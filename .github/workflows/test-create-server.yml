@@ -19,6 +19,7 @@ jobs:
 #        run: hcloud create context test-project
       - name: read configuration.json
         run: |
+          echo `ls`
           echo 'CONFIGURATION_JSON<<EOF' >> $GITHUB_ENV
           cat ./configuration.json >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
