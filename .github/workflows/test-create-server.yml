@@ -17,9 +17,11 @@ jobs:
 #        run: brew install hcloud
 #      - name: Create Server
 #        run: hcloud create context test-project
-      - name: read configuration.json
+      - name: show current directory
         run: |
           echo `ls`
+      - name: read configuration.json
+        run: |
           echo 'CONFIGURATION_JSON<<EOF' >> $GITHUB_ENV
           cat ./configuration.json >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
