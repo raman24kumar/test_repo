@@ -4,7 +4,6 @@ on: workflow_dispatch
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Install Homebrew Prerequisites
         run: sudo apt-get install build-essential procps curl file git
@@ -18,4 +17,11 @@ jobs:
         run: brew install hcloud
       - name: Create Server
         run: hcloud create context test-project
-
+      - name: read configuration.json
+        run: |
+          echo 'CONFIGURATION_JSON<<EOF' >> $GITHUB_ENV
+          cat ./configuration.json >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+      - name: Show contents of configuration.json
+        run: |
+          echo '${{ fromJson(env.CONFIGURATION_JSON).ephemeral }}'
