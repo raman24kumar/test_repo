@@ -17,10 +17,8 @@ jobs:
 #        run: brew install hcloud
 #      - name: Create Server
 #        run: hcloud create context test-project
-      - name: change to previous direcotory
-        run: cd ..
-      - name: change to repo
-        run: cd test_repo
+      - name: print working directory
+        run: pwd
       - name: read configuration.json
         run: |
           echo 'CONFIGURATION_JSON<<EOF' >> $GITHUB_ENV
