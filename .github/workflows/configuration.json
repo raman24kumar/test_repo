@@ -1,0 +1,33 @@
+{
+  "ephemeral": [
+    {
+      "serverType": "CAX21",
+      "count": 4, // number of instances to spin up
+      "ciLabels": [ // labels to attach on github to the runner, optional. if not specified, don't attach any labels
+        "4core",
+        "8gb",
+        "ephemeral"
+      ]
+    },
+    {
+      "serverType": "CAX31",
+      "count": 2,
+      "ciLabels" [
+      "8core",
+      "16gb",
+      "ephemeral"
+    ]
+    }
+  ],
+  "permanent": [
+    {
+      "serverType": "CAX21",
+      "count": 1,
+      "ciLabels": [
+        "4core",
+        "8gb",
+        "permanent"
+      ]
+    },
+  ]
+}

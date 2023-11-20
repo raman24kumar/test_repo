@@ -22,7 +22,7 @@ jobs:
       - name: read configuration.json
         run: |
           echo 'CONFIGURATION_JSON<<EOF' >> $GITHUB_ENV
-          cat ./../configuration.json >> $GITHUB_ENV
+          cat ./configuration.json >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
       - name: Show contents of configuration.json
         run: |
