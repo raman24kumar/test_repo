@@ -30,4 +30,4 @@ jobs:
         run: |
           echo '${{ fromJson(env.CONFIGURATION_JSON).ephemeral }}'
       - name: Show first json array value
-        run: echo '${{ fromJson(CONFIGURATION_JSON).ephemeral[0] }}'
+        run: echo '${{ fromJson(env.CONFIGURATION_JSON).ephemeral[0] }}'
