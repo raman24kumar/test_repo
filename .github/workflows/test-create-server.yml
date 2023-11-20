@@ -18,11 +18,11 @@ jobs:
 #      - name: Create Server
 #        run: hcloud create context test-project
       - name: print working directory
-        run: pwd
+        run: ls
       - name: Change to prvious directory
         run: cd ..
       - name: print working directory
-        run: pwd
+        run: ls
       - name: read configuration.json
         run: |
           echo 'CONFIGURATION_JSON<<EOF' >> $GITHUB_ENV
