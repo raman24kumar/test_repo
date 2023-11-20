@@ -1,9 +1,6 @@
 name: Test Create server
 on: workflow_dispatch
 
-env:
-  EPHEMERAL_SERVERS: []
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -36,8 +33,7 @@ jobs:
         run: echo '${{ fromJson(env.CONFIGURATION_JSON).ephemeral[0].serverType }}'
       - name: Loop through Array
         run: |
-          env.EPHEMERAL_SERVERS: ${{ fromJson(env.CONFIGURATION_JSON).ephemeral }}
-          for server in env.EPHEMERAL_SERVERS
+          for server in ${{ join(fromJson(env.CONFIGURATION_JSON).ephemeral, ' ') }}
           do
             echo $server.serverType
           done
