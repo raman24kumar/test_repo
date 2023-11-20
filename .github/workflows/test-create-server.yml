@@ -35,5 +35,5 @@ jobs:
         run: |
           for server in ${{ fromJson(env.CONFIGURATION_JSON).ephemeral }}
           do
-            echo ${{ server.serverType}}
+            echo $server.serverType
           done
