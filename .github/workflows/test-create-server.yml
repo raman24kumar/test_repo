@@ -29,3 +29,5 @@ jobs:
       - name: Show contents of configuration.json
         run: |
           echo '${{ fromJson(env.CONFIGURATION_JSON).ephemeral }}'
+      - name: Show first json array value
+        run: echo ${{ CONFIGURATION_JSON.ephemeral[0] }}
