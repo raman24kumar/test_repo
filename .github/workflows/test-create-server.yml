@@ -19,6 +19,8 @@ jobs:
 #        run: hcloud create context test-project
       - name: Check out source code
         uses: actions/checkout@v3
+      - name: Test hcloud
+        run: ./bin/hcloud -h
       - name: print working directory
         run: ls
       - name: read configuration.json
