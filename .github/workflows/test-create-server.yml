@@ -33,7 +33,7 @@ jobs:
         run: echo '${{ fromJson(env.CONFIGURATION_JSON).ephemeral[0].serverType }}'
       - name: Loop through Array
         run: |
-          for server in ${{ fromJson(env.CONFIGURATION_JSON).ephemeral }}
+          for server in ${{ fromJson(env.CONFIGURATION_JSON.ephemeral) }}
           do
             echo $server.serverType
           done
