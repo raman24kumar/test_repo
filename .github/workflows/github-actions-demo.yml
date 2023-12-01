@@ -1,9 +1,10 @@
 name: Release
 
 on:
-  pull_request_target:
-    types:
-      - closed
+  workflow_dispatch
+#  pull_request_target:
+#    types:
+#      - closed
 
 jobs:
   if_merged:
