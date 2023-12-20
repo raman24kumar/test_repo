@@ -1,49 +1,22 @@
-name: Annotate Code
+# The name of the workflow as it will appear in the "Actions" tab of the GitHub repository.
+name: Post welcome comment
+# The `on` keyword lets you define the events that trigger when the workflow is run.
 on:
-  push:
-    branches:
-      - main  # Adjust the branch as needed
+  # Add the `pull_request` event, so that the workflow runs automatically
+  # every time a pull request is created.
+  pull_request:
+    types: [opened]
+# Modifies the default permissions granted to `GITHUB_TOKEN`.
+permissions:
+  pull-requests: write
+# Defines a job with the ID `build` that is stored within the `jobs` key.
 jobs:
-  annotate-code:
+  build:
+    name: Post welcome comment
     runs-on: ubuntu-latest
+    # The `run` keyword tells the job to execute a command on the runner.
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 14
-      - name: Install dependencies
-        run: npm install
-      - name: Run your code analysis tool
-        run: npm run analyze  # Replace with your actual command
-      - name: Create check run
-        id: create-check-run
-        uses: actions/create-check-run@v1
-        with:
-          name: Code Analysis
-          status: completed
-          conclusion: success
-      - name: Add annotations
-        if: always()
-        run: |
-          # Replace 'annotations.json' with your actual annotations file
-          annotations=$(cat annotations.json)
-          echo "::set-output name=annotations::$annotations"
-          echo "$annotations" | jq -c '.[]' | while read -r annotation; do
-            echo "::error::$annotation"
-          done
+      - run: gh pr comment $PR_URL --body "Welcome to the repository!"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-
-
-
-
-
-
-
-
-
-
-
+          GITHUB_TOKEN: $
+          PR_URL: $
