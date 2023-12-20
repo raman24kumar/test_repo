@@ -20,6 +20,6 @@ jobs:
 
       - name: Run annotation script
         run: |
-          node .github/scripts/annotate-code.js
+          node --experimental-modules .github/scripts/annotate-code.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
