@@ -4,6 +4,8 @@ on:
     types:
       - opened
 jobs:
+  permissions:
+    - pull
   welcome-comment:
     runs-on: ubuntu-latest
     steps:
