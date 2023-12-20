@@ -1,0 +1,17 @@
+name: Post welcome comment
+on:
+  pull_request:
+    types: [opened]
+# Modifies the default permissions granted to `GITHUB_TOKEN`.
+permissions:
+  pull-requests: write
+# Defines a job with the ID `build` that is stored within the `jobs` key.
+jobs:
+  build:
+    name: Post welcome comment
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh pr comment $PR_URL --body "Welcome to the repository!"
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          PR_URL: https://github.com/raman24kumar/test_repo/pull/42
