@@ -1,8 +1,6 @@
 name: Annotate Code
 on:
-  push:
-    branches:
-      - main  # Adjust the branch as needed
+  [push]  # Adjust the branch as needed
 jobs:
   annotate-code:
     runs-on: ubuntu-latest
