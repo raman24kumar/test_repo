@@ -2,14 +2,14 @@
 # More info at https://megalinter.io
 name: MegaLinter
 
-on:
-  # Trigger mega-linter at every push. Action will also be visible from Pull Requests to main
-  push:
-    branches:
-      - main
+on: workflow_dispatch
+# Trigger mega-linter at every push. Action will also be visible from Pull Requests to main
+#  push:
+#    branches:
+#      - main
 
-  pull_request:
-    branches: main
+#pull_request:
+#  branches: main
 
 env: # Comment env block if you don't want to apply fixes
   # Apply linter fixes configuration
