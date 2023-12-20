@@ -73,7 +73,7 @@ jobs:
       - name: Add annotations
         run: |
           # Example script to add annotations
-          GITHUB_TOKEN=$YOUR_ACCESS_TOKEN  # Replace with your GitHub access token
+          GITHUB_TOKEN=${{secrets.GITHUB_TOKEN}}  # Replace with your GitHub access token
           ANNOTATION_FILE=annotations.json
           
           curl -X POST \
