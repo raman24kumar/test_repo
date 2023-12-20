@@ -1,6 +1,6 @@
 const { Octokit } = require('@octokit/rest');
-
 async function run() {
+
   const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
   // Get information about the current pull request
