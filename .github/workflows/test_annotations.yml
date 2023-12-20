@@ -1,15 +1,49 @@
-name: Post welcome comment
+name: Annotate Code
 on:
-  pull_request:
-    types:
-      - opened
+  push:
+    branches:
+      - main  # Adjust the branch as needed
 jobs:
-  permissions:
-    - pull
-  welcome-comment:
+  annotate-code:
     runs-on: ubuntu-latest
     steps:
-      - name: Post welcome comment
-        run: gh pr comment ${{ github.event.pull_request.url }} --body "Welcome to the repository!"
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 14
+      - name: Install dependencies
+        run: npm install
+      - name: Run your code analysis tool
+        run: npm run analyze  # Replace with your actual command
+      - name: Create check run
+        id: create-check-run
+        uses: actions/create-check-run@v1
+        with:
+          name: Code Analysis
+          status: completed
+          conclusion: success
+      - name: Add annotations
+        if: always()
+        run: |
+          # Replace 'annotations.json' with your actual annotations file
+          annotations=$(cat annotations.json)
+          echo "::set-output name=annotations::$annotations"
+          echo "$annotations" | jq -c '.[]' | while read -r annotation; do
+            echo "::error::$annotation"
+          done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+
+
+
+
+
+
+
+
+
+
