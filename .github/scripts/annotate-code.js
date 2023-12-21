@@ -22,7 +22,7 @@ async function run() {
     if (!headSha) {
       throw new Error('Failed to get the head SHA of the pull request.');
     }
-
+    console.log("after head sha failed")
   // You may have your own logic to generate annotations
   const annotations = [
     {
@@ -33,7 +33,7 @@ async function run() {
       message: 'This is an annotation message',
     },
   ];
-
+    console.log("after annotations definition")
   // Create a check run
   const checkRun = await octokit.checks.create({
     owner: process.env.GITHUB_REPOSITORY.split('/')[0],
