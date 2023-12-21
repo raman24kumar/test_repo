@@ -14,6 +14,7 @@ async function run() {
     console.log(process.env.GITHUB_REPOSITORY.split('/')[1])
     console.log(process.env.GITHUB_PULL_REQUEST_NUMBER)
 
+    console.log(pullRequest)
 
     const headSha = pullRequest[0].head && pullRequest[0].head.sha;
 
