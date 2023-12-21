@@ -10,6 +10,19 @@ async function run() {
     pull_number: process.env.GITHUB_PULL_REQUEST_NUMBER,
   });
 
+
+    if (!pullRequest) {
+      throw new Error('Failed to retrieve pull request information.');
+    }
+
+    console.log('Pull Request:', pullRequest);
+
+    const headSha = pullRequest.head && pullRequest.head.sha;
+
+    if (!headSha) {
+      throw new Error('Failed to get the head SHA of the pull request.');
+    }
+
   // You may have your own logic to generate annotations
   const annotations = [
     {
