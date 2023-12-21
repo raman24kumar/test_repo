@@ -9,7 +9,7 @@ async function run() {
     repo: process.env.GITHUB_REPOSITORY.split('/')[1],
     pull_number: process.env.PR_NUMBER
   });
-
+    console.log(process.env.GITHUB_TOKEN)
     console.log(process.env.GITHUB_REPOSITORY.split('/')[0])
     console.log(process.env.GITHUB_REPOSITORY.split('/')[1])
     console.log(process.env.GITHUB_PULL_REQUEST_NUMBER)
