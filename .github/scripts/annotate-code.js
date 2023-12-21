@@ -17,7 +17,7 @@ async function run() {
 
     console.log('Pull Request:', pullRequest);
 
-    const headSha = pullRequest.head && pullRequest.head.sha;
+    const headSha = pullRequest[0].head && pullRequest[0].head.sha;
 
     if (!headSha) {
       throw new Error('Failed to get the head SHA of the pull request.');
@@ -39,7 +39,7 @@ async function run() {
     owner: process.env.GITHUB_REPOSITORY.split('/')[0],
     repo: process.env.GITHUB_REPOSITORY.split('/')[1],
     name: 'Annotate Code',
-    head_sha: pullRequest.head.sha,
+    head_sha: pullRequest[0].head.sha,
     status: 'completed',
     conclusion: 'success', // or 'failure'
     output: {
