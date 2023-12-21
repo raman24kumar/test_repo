@@ -26,9 +26,9 @@ async function run() {
   // You may have your own logic to generate annotations
   const annotations = [
     {
-      path: 'path/to/file.js',
-      start_line: 10,
-      end_line: 10,
+      path: '.github/scripts/annotate-code.js',
+      start_line: 13,
+      end_line: 13,
       annotation_level: 'failure',
       message: 'This is an annotation message',
     },
