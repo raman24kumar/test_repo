@@ -23,3 +23,4 @@ jobs:
           node --experimental-modules .github/scripts/annotate-code.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.number }}
