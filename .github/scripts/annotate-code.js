@@ -16,7 +16,7 @@ async function run() {
 
     console.log(pullRequest)
 
-    const headSha = pullRequest[0].head && pullRequest[0].head.sha;
+    const headSha = pullRequest.head && pullRequest.head.sha;
 
   const annotations = [
     {
@@ -33,7 +33,7 @@ async function run() {
     owner: process.env.GITHUB_REPOSITORY.split('/')[0],
     repo: process.env.GITHUB_REPOSITORY.split('/')[1],
     name: 'Annotate Code',
-    head_sha: pullRequest[0].head.sha,
+    head_sha: pullRequest.head.sha,
     status: 'completed',
     conclusion: 'success', // or 'failure'
     output: {
