@@ -9,6 +9,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        
+      - name: Fix EOF Newline
+        uses: gps/newline-at-eof@master
+        with:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMIT_AND_PUSH_CHANGES: false
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
