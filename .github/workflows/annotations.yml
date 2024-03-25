@@ -66,18 +66,53 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Run your tests or analysis
-        run: |
-          # Your code analysis or test commands go here
+      - name: Fix EOF Newline
+        uses: gps/newline-at-eof@master
+        with:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMIT_AND_PUSH_CHANGES: false
 
-      - name: Add annotations
-        run: |
-          # Example script to add annotations
-          GITHUB_TOKEN=${{secrets.GITHUB_TOKEN}}  # Replace with your GitHub access token
-          ANNOTATION_FILE=annotations.json
-          
-          curl -X POST \
-            -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: Bearer $GITHUB_TOKEN" \
-            https://api.github.com/repos/$GITHUB_REPOSITORY/check-runs/$GITHUB_RUN_ID/annotations \
-            --data-binary @$ANNOTATION_FILE
+
+      # - name: Run Code Analysis
+      #   run: |
+      #     # Your code analysis command goes here
+
+      # - name: Add Annotations
+      #   uses: actions/github-script@v6
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     script: |
+      #       const annotations = [
+      #         {
+      #           path: 'path/to/file.js',
+      #           start_line: 10,
+      #           end_line: 10,
+      #           annotation_level: 'failure',
+      #           title: 'Linting Issue',
+      #           message: 'There is a linting issue on this line.',
+      #         },
+      #       ];
+
+      #       for (const annotation of annotations) {
+      #         github.rest.pulls.createReview({
+      #           owner: context.repo.owner,
+      #           repo: context.repo.repo,
+      #           pull_number: context.payload.pull_request.number,
+      #           body: annotation.message,
+      #           event: 'COMMENT',
+      #         });
+
+      #         github.rest.checks.create({
+      #           owner: context.repo.owner,
+      #           repo: context.repo.repo,
+      #           name: 'Code Analysis',
+      #           head_sha: context.sha,
+      #           conclusion: 'failure',
+      #           output: {
+      #             title: annotation.title,
+      #             summary: annotation.message,
+      #             annotations: [annotation],
+      #           },
+      #         });
+      #       }
+
