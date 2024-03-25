@@ -1,0 +1,32 @@
+name: Annotate Code
+
+on: [pull_request]
+
+jobs:
+  annotate-code:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Fix EOF Newline
+        uses: gps/newline-at-eof@master
+        with:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMIT_AND_PUSH_CHANGES: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install @octokit/rest
+
+      - name: Run annotation script
+        run: |
+          node --experimental-modules .github/scripts/annotate-code.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.number }}
